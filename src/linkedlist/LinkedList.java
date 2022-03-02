@@ -1,4 +1,6 @@
-public class Main {
+package linkedlist;
+
+public class LinkedList {
     public static void main(String[] args) {
         Node<Integer> head = null;
         head = addNode(head, 2);
@@ -13,22 +15,39 @@ public class Main {
         assertResult(head.next.next.next.value == 9);
 
         displayList(head);
+        System.out.println();
+        find(head,9);
 
     }
 
     public static Node<Integer> addNode(Node<Integer> head, int value) {
+
+    // Instantiate a new Node.
         Node<Integer> newNode = new Node<Integer>(value);
 
+    // Set value to List if List is empty.
         if (head == null)
             return newNode;
 
+    // Set Traveller
         Node<Integer> trav = head;
 
-        while (trav.next != null) {
+    // loop to the end of the list.
+        while (trav.next != null)
             trav = trav.next;
-        }
-        trav.next = newNode;
+
+    // Add value to the end of the list.
+            trav.next = newNode;
+
+    // return Node.
         return newNode;
+    }
+
+    public static Node<Integer> recAddNode(Node<Integer> head, int value){
+        if (head==null)
+            return new Node<Integer>(value);
+
+        return recAddNode(head.next, value);
     }
 
     public static void displayList(Node<Integer> head) {
@@ -48,6 +67,30 @@ public class Main {
             trav = trav.next;
         }
     }
+
+    public static Node<Integer> find(Node<Integer> head, int query){
+        // 0. Integer return the query if found null or not.
+        // 1. int return the index  if found or -1 if not found.
+        // 2. Node return of the node object that contains the query of null if not found.
+
+        //while loop - palindrome
+
+
+        Node<Integer> trav=head;
+
+        while(trav !=null ){
+
+            if (trav.value==query) {
+                System.out.print(trav.value);
+                return trav;
+            }
+            trav=trav.next;
+        }
+        System.out.println("\n\nquery not found.");
+        return null;
+    }
+
+
 
     public static void assertResult(boolean results) {
         if (results)
